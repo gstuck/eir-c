@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CWC · Color & Type Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=Corben:wght@400;700&family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dark:     #243F46;
+    --mid:      #51C49B;
+    --light:    #CDF6DD;
+    --accent-1: #DE6449;
+    --accent-2: #E0A458;
+    --accent-3: #280003;
+    --accent-4: #EC5B7E;
+    --dark-soft:     #E1E7E8;
+    --light-soft:    #ECFAF1;
+    --accent-1-soft: #FAE9E3;
+    --accent-2-soft: #F8EEDC;
+    --accent-3-soft: #F2E0DE;
+    --accent-4-soft: #FBE0E7;
+    --bg:        #FFFFFF;
+    --ink:       #1F1B24;
+    --ink-soft:  #5B5560;
+    --rule:      #E5E3E0;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    background-image: radial-gradient(circle at 1px 1px, rgba(36, 63, 70, 0.08) 1px, transparent 0);
+    background-size: 24px 24px;
+    padding: 3rem 2rem;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; }
+  h1.title {
+    font-family: 'Corben', Georgia, serif;
+    font-size: 2.75rem;
+    color: var(--dark);
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  p.lede {
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    max-width: 60ch;
+    margin: 0 0 3rem;
+  }
+  h2.section {
+    font-family: 'Corben', Georgia, serif;
+    font-size: 1.5rem;
+    color: var(--dark);
+    margin: 2.5rem 0 1.25rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 2px solid var(--accent-1);
+    display: inline-block;
+  }
+
+  /* ===== PALETTE ===== */
+  .pal-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  @media (max-width: 850px) {
+    .pal-row { grid-template-columns: 1fr 1fr; }
+  }
+  .swatch {
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .swatch-main { height: 120px; }
+  .swatch-soft { height: 30px; border-top: 1px solid var(--rule); }
+  .swatch-meta {
+    padding: 0.85rem 1rem 1rem;
+    border-top: 1px solid var(--rule);
+  }
+  .swatch-role {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    color: var(--ink-soft);
+    margin: 0 0 0.25rem;
+  }
+  .swatch-name {
+    font-family: 'Corben', Georgia, serif;
+    font-size: 1.15rem;
+    color: var(--dark);
+    margin: 0 0 0.35rem;
+  }
+  .swatch-hex {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  .swatch-hex .soft { color: var(--ink-soft); opacity: 0.7; }
+  .swatch-var {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+    margin: 0.25rem 0 0;
+  }
+
+  /* ===== TYPE ===== */
+  .type-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 1rem 2rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+  }
+  .type-meta { color: var(--ink-soft); font-size: 13px; line-height: 1.5; }
+  .type-meta strong { color: var(--dark); display: block; font-family: 'Corben', Georgia, serif; font-size: 16px; margin-bottom: 0.25rem; }
+  .type-sample { line-height: 1.1; }
+
+  .ex-corben-display { font-family: 'Corben', Georgia, serif; font-size: 3rem; font-weight: 700; color: var(--dark); letter-spacing: -0.02em; }
+  .ex-corben-h2 { font-family: 'Corben', Georgia, serif; font-size: 2rem; font-weight: 700; color: var(--dark); letter-spacing: -0.015em; margin: 0; }
+  .ex-corben-card { font-family: 'Corben', Georgia, serif; font-size: 1.65rem; font-weight: 700; color: var(--accent-1); letter-spacing: -0.015em; margin: 0; }
+  .ex-inter-body { font-family: 'Inter', sans-serif; font-size: 1.05rem; line-height: 1.6; color: var(--ink); margin: 0; }
+  .ex-inter-label {
+    font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.16em; color: var(--accent-1); margin: 0;
+  }
+  .ex-inter-small { font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.55; color: var(--ink-soft); margin: 0; }
+  .ex-caveat { font-family: 'Caveat', cursive; font-size: 2.5rem; font-weight: 600; color: var(--accent-3); margin: 0; line-height: 1.1; }
+
+  /* ===== COMBINATIONS (real-site previews) ===== */
+  .combo {
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--rule);
+  }
+  .combo-mint {
+    padding: 2rem 2rem;
+    background-color: var(--light-soft);
+    background-image:
+      radial-gradient(ellipse at 25% 30%, rgba(81, 196, 155, 0.18), transparent 55%),
+      radial-gradient(circle at 1px 1px, rgba(36, 63, 70, 0.12) 1px, transparent 0);
+    background-size: auto, 24px 24px;
+  }
+  .combo-mint h3 { font-family: 'Corben', Georgia, serif; font-size: 2rem; color: var(--dark); margin: 0; }
+  .combo-mint p { font-family: 'Inter', sans-serif; color: var(--dark); margin: 0.5rem 0 0; }
+
+  .combo-dark { padding: 2rem; background: var(--dark); color: white; }
+  .combo-dark h3 { font-family: 'Corben', Georgia, serif; font-size: 1.5rem; margin: 0; color: white; }
+  .combo-dark p { font-family: 'Inter', sans-serif; color: rgba(255,255,255,0.85); margin: 0.5rem 0 0; }
+
+  .combo-honey { padding: 2rem; background: var(--accent-2); }
+  .combo-honey h3 { font-family: 'Corben', Georgia, serif; font-size: 1.5rem; margin: 0; color: var(--dark); }
+  .combo-honey p { font-family: 'Inter', sans-serif; color: var(--dark); margin: 0.5rem 0 0; }
+
+  .combo-card {
+    padding: 1.5rem 1.5rem 1.25rem;
+    background: white;
+    border-top: 3px solid var(--accent-1);
+  }
+  .combo-card-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  .combo-card-row .combo-card:nth-child(2) { border-top-color: var(--accent-2); }
+  .combo-card-row .combo-card:nth-child(2) .ex-corben-card { color: var(--accent-2); }
+  .combo-card-row .combo-card:nth-child(3) { border-top-color: var(--accent-3); }
+  .combo-card-row .combo-card:nth-child(3) .ex-corben-card { color: var(--accent-3); }
+
+  footer.foot {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    color: var(--ink-soft);
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1 class="title">Color &amp; Type Reference</h1>
+  <p class="lede">A single sheet showing every color and font in the CWC palette. Use this when riffing on the site — it's the source of truth for what's in the system.</p>
+
+  <!-- ============ PALETTE ============ -->
+  <h2 class="section">Palette</h2>
+
+  <p style="margin: 0 0 1rem; font-size: 14px; color: var(--ink-soft);">Seven role-based colors. Each has a paper-light "soft" tint shown as the thin band below the main color.</p>
+
+  <div class="pal-row">
+
+    <div class="swatch">
+      <div class="swatch-main" style="background: var(--dark);"></div>
+      <div class="swatch-soft" style="background: var(--dark-soft);"></div>
+      <div class="swatch-meta">
+        <p class="swatch-role">dark</p>
+        <p class="swatch-name">Dark Teal</p>
+        <p class="swatch-hex">#243F46 <span class="soft">/ soft #E1E7E8</span></p>
+        <p class="swatch-var">var(--dark) / var(--dark-soft)</p>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-main" style="background: var(--mid);"></div>
+      <div class="swatch-soft" style="background: var(--light-soft);"></div>
+      <div class="swatch-meta">
+        <p class="swatch-role">mid</p>
+        <p class="swatch-name">Jade</p>
+        <p class="swatch-hex">#51C49B</p>
+        <p class="swatch-var">var(--mid)</p>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-main" style="background: var(--light);"></div>
+      <div class="swatch-soft" style="background: var(--light-soft);"></div>
+      <div class="swatch-meta">
+        <p class="swatch-role">light</p>
+        <p class="swatch-name">Pale Mint</p>
+        <p class="swatch-hex">#CDF6DD <span class="soft">/ soft #ECFAF1</span></p>
+        <p class="swatch-var">var(--light) / var(--light-soft)</p>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-main" style="background: var(--accent-1);"></div>
+      <div class="swatch-soft" style="background: var(--accent-1-soft);"></div>
+      <div class="swatch-meta">
+        <p class="swatch-role">accent-1</p>
+        <p class="swatch-name">Burnt Peach</p>
+        <p class="swatch-hex">#DE6449 <span class="soft">/ soft #FAE9E3</span></p>
+        <p class="swatch-var">var(--accent-1)</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="pal-row">
+
+    <div class="swatch">
+      <div class="swatch-main" style="background: var(--accent-2);"></div>
+      <div class="swatch-soft" style="background: var(--accent-2-soft);"></div>
+      <div class="swatch-meta">
+        <p class="swatch-role">accent-2</p>
+        <p class="swatch-name">Honey Amber</p>
+        <p class="swatch-hex">#E0A458 <span class="soft">/ soft #F8EEDC</span></p>
+        <p class="swatch-var">var(--accent-2)</p>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-main" style="background: var(--accent-3);"></div>
+      <div class="swatch-soft" style="background: var(--accent-3-soft);"></div>
+      <div class="swatch-meta">
+        <p class="swatch-role">accent-3</p>
+        <p class="swatch-name">Mahogany</p>
+        <p class="swatch-hex">#280003 <span class="soft">/ soft #F2E0DE</span></p>
+        <p class="swatch-var">var(--accent-3)</p>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-main" style="background: var(--accent-4);"></div>
+      <div class="swatch-soft" style="background: var(--accent-4-soft);"></div>
+      <div class="swatch-meta">
+        <p class="swatch-role">accent-4</p>
+        <p class="swatch-name">Pink</p>
+        <p class="swatch-hex">#EC5B7E <span class="soft">/ soft #FBE0E7</span></p>
+        <p class="swatch-var">var(--accent-4)</p>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-main" style="background: var(--bg); border-right: 1px solid var(--rule);"></div>
+      <div class="swatch-soft" style="background: var(--ink); height: 30px;"></div>
+      <div class="swatch-meta">
+        <p class="swatch-role">utility</p>
+        <p class="swatch-name">Page / Ink</p>
+        <p class="swatch-hex">#FFFFFF <span class="soft">/ ink #1F1B24</span></p>
+        <p class="swatch-var">var(--bg) / var(--ink)</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============ TYPE ============ -->
+  <h2 class="section">Typography</h2>
+
+  <div class="type-grid">
+    <div class="type-meta">
+      <strong>Corben 700</strong>
+      Display headlines.<br>
+      Hero h1, banner h2, card titles, page titles.<br>
+      <em>Letter-spacing -0.02em.</em>
+    </div>
+    <div class="type-sample">
+      <p class="ex-corben-display">Convos with colleagues</p>
+    </div>
+  </div>
+
+  <div class="type-grid">
+    <div class="type-meta">
+      <strong>Corben 700 · medium</strong>
+      Section headings.<br>
+      Theme h2, About/Tips page h2.
+    </div>
+    <div class="type-sample">
+      <h2 class="ex-corben-h2">Fostering Student Discourse</h2>
+    </div>
+  </div>
+
+  <div class="type-grid">
+    <div class="type-meta">
+      <strong>Corben 700 · accent</strong>
+      Card titles (rotates by theme: peach / honey / mahogany).
+    </div>
+    <div class="type-sample">
+      <p class="ex-corben-card">Sensitive Topics</p>
+    </div>
+  </div>
+
+  <div class="type-grid">
+    <div class="type-meta">
+      <strong>Inter 400</strong>
+      Body copy.<br>
+      Overviews, paragraphs, prose.
+    </div>
+    <div class="type-sample">
+      <p class="ex-inter-body">Convos with Colleagues is a collection of roundtable discussion guides for math teachers. Each runs 30 to 60 minutes and needs no facilitator.</p>
+    </div>
+  </div>
+
+  <div class="type-grid">
+    <div class="type-meta">
+      <strong>Inter 600 · eyebrow</strong>
+      Small uppercase labels.<br>
+      Theme eyebrows, banner eyebrows.
+    </div>
+    <div class="type-sample">
+      <p class="ex-inter-label">Anatomy of a Convo</p>
+    </div>
+  </div>
+
+  <div class="type-grid">
+    <div class="type-meta">
+      <strong>Inter 400 · small</strong>
+      Captions, time labels, footnotes.
+    </div>
+    <div class="type-sample">
+      <p class="ex-inter-small">10–15 min · Each Spark is contextualized in a Citizen Math lesson.</p>
+    </div>
+  </div>
+
+  <div class="type-grid">
+    <div class="type-meta">
+      <strong>Caveat 600</strong>
+      Handwritten flourish.<br>
+      Footer CTA list ("invite your colleagues / print the convo guides / pull up a chair").
+    </div>
+    <div class="type-sample">
+      <p class="ex-caveat">pull up a chair</p>
+    </div>
+  </div>
+
+  <!-- ============ COMBINATIONS ============ -->
+  <h2 class="section">Combinations in context</h2>
+  <p style="margin: 0 0 1rem; font-size: 14px; color: var(--ink-soft);">How colors and fonts actually appear together on the site.</p>
+
+  <div class="combo combo-mint">
+    <h3>Hero · dark teal on pale mint</h3>
+    <p>Hero h1 uses dark teal on a pale-mint dot-grid background with a soft jade glow.</p>
+  </div>
+
+  <div class="combo combo-dark">
+    <h3>Dark banner · white text on dark teal</h3>
+    <p>"Anatomy of a Convo" lives here.</p>
+  </div>
+
+  <div class="combo combo-honey">
+    <h3>Honey banner · dark teal text on honey amber</h3>
+    <p>"Can I get the reference lessons" lives here. Dark text on warm honey reads as inviting without being shouty.</p>
+  </div>
+
+  <div class="combo">
+    <div class="combo-card-row">
+      <div class="combo-card"><p class="ex-corben-card" style="font-size: 1.4rem;">Right Answers</p><p style="font-family: 'Inter', sans-serif; font-size: 13px; color: var(--ink-soft); margin: 0.35rem 0 0;">How should I handle students' "right" answers?</p></div>
+      <div class="combo-card"><p class="ex-corben-card" style="font-size: 1.4rem;">Sensitive Topics</p><p style="font-family: 'Inter', sans-serif; font-size: 13px; color: var(--ink-soft); margin: 0.35rem 0 0;">How should I approach sensitive topics?</p></div>
+      <div class="combo-card"><p class="ex-corben-card" style="font-size: 1.4rem;">Open-Ended Questions</p><p style="font-family: 'Inter', sans-serif; font-size: 13px; color: var(--ink-soft); margin: 0.35rem 0 0;">How can I strengthen student responses?</p></div>
+    </div>
+  </div>
+  <p style="font-size: 13px; color: var(--ink-soft); margin: 0.5rem 0 0;">Card titles rotate accent colors across the three themes (peach → honey → mahogany).</p>
+
+  <footer class="foot">
+    To change the palette, edit the seven role variables at the top of <code>styles.css</code> (<code>--dark</code>, <code>--mid</code>, <code>--light</code>, <code>--accent-1</code> through <code>--accent-4</code>). The legacy <code>--c-mahogany</code>, <code>--c-peach</code>, etc. aliases also live in that block — they all point to the role variables, so the site updates from one place.
+  </footer>
+
+</div>
+</body>
+</html>

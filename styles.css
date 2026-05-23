@@ -18,6 +18,7 @@
   --accent-1: #DE6449;  /* burnt peach   — primary warm accent        */
   --accent-2: #E0A458;  /* honey amber   — secondary warm (was olive) */
   --accent-3: #280003;  /* mahogany      — deepest warm, stat cards   */
+  --accent-4: #EC5B7E;  /* pink          — accent pop, doodles        */
 
   /* Soft tints — paper-light versions of each role.
      If you change a role color, regenerate its -soft to match (~12%). */
@@ -26,6 +27,7 @@
   --accent-1-soft: #FAE9E3;
   --accent-2-soft: #F8EEDC;
   --accent-3-soft: #F2E0DE;
+  --accent-4-soft: #FBE0E7;
 
   /* ----------------------------------------------------------------
      LEGACY ALIASES — every existing rule reads through these.
@@ -175,7 +177,7 @@ a:hover { text-decoration-color: var(--mid); }
   line-height: 1.0;
   letter-spacing: -0.015em;
   margin: 0 0 1.5rem;
-  color: var(--c-peach);
+  color: var(--dark);
   max-width: 13ch;
 }
 
@@ -184,49 +186,57 @@ a:hover { text-decoration-color: var(--mid); }
   font-size: 1.2rem;
   line-height: 1.55;
   color: var(--c-slate);
-  max-width: 38ch;
+  max-width: none;
   margin: 0;
 }
 
 /* ============================================================
-   HERO STATS — compact, 2-line max, sit in hero
+   HERO STATS — single strip divided into three
    ============================================================ */
 
 .hero-stats {
   max-width: 1200px;
   margin: 3rem auto 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  display: flex;
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  overflow: hidden;
 }
 .hero-stat {
-  padding: 1.25rem 1.4rem;
-  border-radius: var(--radius-md);
-  color: white;
+  flex: 1;
+  padding: 1.5rem 1.75rem;
   display: flex;
-  align-items: center;
-  gap: 1rem;
-  transition: transform 0.2s ease;
+  flex-direction: column;
+  gap: 0.35rem;
+  border-right: 1px solid var(--rule);
+  background: transparent;
 }
-.hero-stat:hover { transform: translateY(-2px); }
-.hero-stat:nth-child(1) { background: var(--c-mahogany); }
-.hero-stat:nth-child(2) { background: var(--c-peach); }
-.hero-stat:nth-child(3) { background: var(--c-slate); }
+.hero-stat:last-child { border-right: none; }
 .hero-stat-num {
   font-family: 'Corben', 'Cooper Std', 'Souvenir', Georgia, serif;
-  font-size: clamp(1.6rem, 2.4vw, 2rem);
+  font-size: clamp(1.5rem, 2.2vw, 1.9rem);
   font-weight: 700;
+  color: var(--dark);
+  letter-spacing: -0.01em;
   line-height: 1;
-  letter-spacing: -0.02em;
-  flex-shrink: 0;
-  white-space: nowrap;
 }
 .hero-stat-label {
   font-family: 'Inter', sans-serif;
   font-size: 0.92rem;
-  font-weight: 500;
-  line-height: 1.3;
-  color: rgba(255,255,255,0.92);
+  color: var(--c-slate);
+  line-height: 1.35;
+}
+
+@media (max-width: 720px) {
+  .hero-stats {
+    flex-direction: column;
+  }
+  .hero-stat {
+    border-right: none;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-stat:last-child { border-bottom: none; }
 }
 
 /* ============================================================
@@ -248,13 +258,13 @@ a:hover { text-decoration-color: var(--mid); }
   color: var(--ink);
 }
 .theme-section:nth-of-type(2) .theme-header h2 { border-bottom-color: var(--accent-2); }
-.theme-section:nth-of-type(3) .theme-header h2 { border-bottom-color: var(--mid); }
+.theme-section:nth-of-type(3) .theme-header h2 { border-bottom-color: var(--accent-3); }
 
 .theme-lesson {
   font-family: 'Inter', sans-serif;
   font-size: 13px;
   color: var(--ink-soft);
-  display: flex;
+  display: none; /* HIDDEN BY DESIGN — flip to 'flex' to bring back */
   flex-wrap: wrap;
   align-items: center;
   gap: 0.4rem;
@@ -288,7 +298,8 @@ a:hover { text-decoration-color: var(--mid); }
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-  padding-bottom: 8px; /* room for hidden scrollbar shadow */
+  /* Internal padding so cards aren't clipped on hover lift / border highlight */
+  padding: 8px 4px 16px;
   /* hide scrollbar visually */
   scrollbar-width: none;
 }
@@ -371,6 +382,7 @@ a:hover { text-decoration-color: var(--mid); }
   padding: 1.75rem 1.5rem 1.5rem;
   background: var(--bg);
   border: 1px solid var(--rule);
+  border-top: 3px solid var(--accent-1);
   border-radius: var(--radius-lg);
   min-height: 220px;
   transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
@@ -379,9 +391,12 @@ a:hover { text-decoration-color: var(--mid); }
   transform: translateY(-3px);
   box-shadow: 0 12px 32px -10px rgba(31, 27, 36, 0.12);
 }
-.theme-section:nth-of-type(1) .convo-card:hover { border-color: var(--accent-1); }
-.theme-section:nth-of-type(2) .convo-card:hover { border-color: var(--accent-2); }
-.theme-section:nth-of-type(3) .convo-card:hover { border-color: var(--mid); }
+.theme-section:nth-of-type(1) .convo-card { border-top-color: var(--accent-1); }
+.theme-section:nth-of-type(2) .convo-card { border-top-color: var(--accent-2); }
+.theme-section:nth-of-type(3) .convo-card { border-top-color: var(--accent-3); }
+.theme-section:nth-of-type(1) .convo-card:hover { border-color: var(--accent-1); border-top-color: var(--accent-1); }
+.theme-section:nth-of-type(2) .convo-card:hover { border-color: var(--accent-2); border-top-color: var(--accent-2); }
+.theme-section:nth-of-type(3) .convo-card:hover { border-color: var(--accent-3); border-top-color: var(--accent-3); }
 
 .convo-short {
   font-family: 'Corben', 'Cooper Std', 'Souvenir', Georgia, serif;
@@ -389,10 +404,13 @@ a:hover { text-decoration-color: var(--mid); }
   line-height: 1.05;
   font-weight: 700;
   letter-spacing: -0.015em;
-  color: var(--c-mahogany);
+  color: var(--accent-1);
   margin: 0 0 0.85rem;
   display: block;
 }
+.theme-section:nth-of-type(1) .convo-short { color: var(--accent-1); }
+.theme-section:nth-of-type(2) .convo-short { color: var(--accent-2); }
+.theme-section:nth-of-type(3) .convo-short { color: var(--accent-3); }
 .convo-question {
   font-family: 'Inter', sans-serif;
   font-size: 0.95rem;
@@ -511,12 +529,66 @@ a:hover { text-decoration-color: var(--mid); }
 }
 
 /* ============================================================
-   BANNER B — "Can I get the focus lessons..." — BURNT PEACH
+   DOODLE BRIDGE — hand-drawn pink arrow between the dark and
+   honey banners. Animates with a stroke-draw when scrolled in.
+   ============================================================ */
+
+.doodle-bridge {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  pointer-events: none;
+  /* Negative margins let the arrow visually overlap both adjacent banners
+     so it reads as 'bridging' between them rather than sitting in a gap. */
+  margin-top: -40px;
+  margin-bottom: -40px;
+  z-index: 5;
+}
+.doodle-arrow {
+  width: 280px;
+  height: 130px;
+  /* On smaller screens we shrink and recenter so it doesn't crowd */
+  max-width: 50vw;
+}
+.doodle-path,
+.doodle-head {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+.doodle-bridge.in-view .doodle-path {
+  animation: doodleDraw 1.4s ease-out forwards;
+}
+.doodle-bridge.in-view .doodle-head {
+  animation: doodleDraw 0.4s ease-out 1.2s forwards;
+}
+@keyframes doodleDraw {
+  to { stroke-dashoffset: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .doodle-path,
+  .doodle-head {
+    stroke-dashoffset: 0;
+  }
+}
+@media (max-width: 720px) {
+  .doodle-bridge {
+    justify-content: center;
+    margin-top: -20px;
+    margin-bottom: -20px;
+  }
+  .doodle-arrow { width: 180px; height: 90px; }
+}
+
+/* ============================================================
+   BANNER B — "Can I get the reference lessons..." — HONEY AMBER
    ============================================================ */
 
 .banner-lessons {
-  background: var(--c-peach);
-  color: white;
+  background: var(--accent-2);
+  color: var(--dark);
   padding: 4rem 2rem;
   position: relative;
   overflow: hidden;
@@ -527,7 +599,7 @@ a:hover { text-decoration-color: var(--mid); }
   width: 420px;
   height: 420px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(205, 246, 221, 0.25), transparent 70%);
+  background: radial-gradient(circle, rgba(36, 63, 70, 0.10), transparent 70%);
   top: -200px;
   left: -100px;
   pointer-events: none;
@@ -548,13 +620,13 @@ a:hover { text-decoration-color: var(--mid); }
   letter-spacing: -0.015em;
   line-height: 1.08;
   margin: 0 0 1rem;
-  color: white;
+  color: var(--dark);
 }
 .banner-lessons p {
   font-family: 'Inter', sans-serif;
   font-size: 1.05rem;
   line-height: 1.6;
-  color: rgba(255,255,255,0.94);
+  color: var(--dark);
   margin: 0 0 0.85rem;
 }
 .banner-lessons .banner-cta {
@@ -562,8 +634,8 @@ a:hover { text-decoration-color: var(--mid); }
   align-items: center;
   gap: 0.5rem;
   padding: 0.85rem 1.5rem;
-  background: white;
-  color: var(--c-peach);
+  background: var(--dark);
+  color: white;
   border-radius: 100px;
   font-family: 'Inter', sans-serif;
   font-size: 15px;
@@ -582,7 +654,8 @@ a:hover { text-decoration-color: var(--mid); }
    ============================================================ */
 
 .site-footer {
-  padding: 6rem 2rem 4rem;
+  padding: 3rem 2rem 2.5rem;
+  background: var(--dark-soft);
   border-top: 1px solid var(--rule);
 }
 .footer-inner {
