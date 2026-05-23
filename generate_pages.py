@@ -674,14 +674,33 @@ INDEX_BANNERS = '''
               <path d="M58 51 L 78 48" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
               <path d="M58 60 L 74 58" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             </svg>
-            <h3>Lesson Context</h3>
+            <h3>Reference Lesson</h3>
             <p>Each spark is contextualized in a high-quality lesson that's mathematically rigorous and rooted in the real world.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- BURNT PEACH BANNER: Can I get the reference lessons -->
+    <!-- DOODLE BRIDGE: pink hand-drawn arrow from dark banner's "Reference Lesson"
+         column down to the honey banner that talks about reference lessons -->
+    <div class="doodle-bridge" aria-hidden="true">
+      <svg class="doodle-arrow" viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+        <!-- Squiggle path: starts near top-right (under "Reference Lesson"),
+             curves down and leftward, ending with an arrowhead pointing
+             at the honey banner heading. -->
+        <path class="doodle-path"
+              d="M 320 10 C 330 40, 290 50, 280 70 S 240 100, 230 125 S 200 160, 175 165"
+              fill="none" stroke="#EC5B7E" stroke-width="3"
+              stroke-linecap="round" stroke-linejoin="round" />
+        <!-- Arrowhead: two small lines meeting at the end of the path -->
+        <path class="doodle-head"
+              d="M 165 155 L 175 165 L 187 158"
+              fill="none" stroke="#EC5B7E" stroke-width="3"
+              stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </div>
+
+    <!-- HONEY AMBER BANNER: Can I get the reference lessons -->
     <section class="banner-lessons">
       <div class="banner-lessons-inner">
         <div>
@@ -727,6 +746,25 @@ INDEX_CAROUSEL_SCRIPT = '''
         checkState();
       });
     })();
+
+    // Doodle arrow: trigger the stroke-draw animation when scrolled into view
+    (function() {
+      var bridge = document.querySelector('.doodle-bridge');
+      if (!bridge) return;
+      if (!('IntersectionObserver' in window)) {
+        bridge.classList.add('in-view');
+        return;
+      }
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            bridge.classList.add('in-view');
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.3 });
+      observer.observe(bridge);
+    })();
   </script>'''
 
 
@@ -765,7 +803,6 @@ def render_index(convos):
   <main>
     <section class="home-hero">
       <div class="home-hero-inner">
-        <p class="hero-eyebrow">A simple set of resources for extraordinary PD</p>
         <h1>Convos with colleagues</h1>
         <p class="hero-dek">Roundtable discussions about common instructional challenges in math class.</p>
       </div>

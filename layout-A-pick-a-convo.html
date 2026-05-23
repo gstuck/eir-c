@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Layout A · Pick a Convo · utility-first</title>
+<link href="https://fonts.googleapis.com/css2?family=Corben:wght@400;700&family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dark:     #243F46;
+    --mid:      #51C49B;
+    --light:    #CDF6DD;
+    --accent-1: #DE6449;
+    --accent-2: #E0A458;
+    --accent-3: #280003;
+    --accent-4: #EC5B7E;
+    --dark-soft:     #E1E7E8;
+    --light-soft:    #ECFAF1;
+    --bg:        #FFFFFF;
+    --ink:       #1F1B24;
+    --ink-soft:  #5B5560;
+    --rule:      #E5E3E0;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.5;
+  }
+
+  /* Slim header */
+  .nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 2rem; border-bottom: 1px solid var(--rule);
+  }
+  .nav-logo {
+    font-family: 'Corben', Georgia, serif; font-weight: 700;
+    color: var(--dark); text-decoration: none; font-size: 1.1rem;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+  .nav-links a {
+    margin-left: 1.5rem; color: var(--dark); text-decoration: none;
+    font-weight: 500; font-size: 14px;
+  }
+
+  /* COMPACT HERO — left side describes the thing, right side is filter chips */
+  .hero {
+    background-color: var(--light-soft);
+    background-image:
+      radial-gradient(ellipse at 25% 30%, rgba(81, 196, 155, 0.18), transparent 55%),
+      radial-gradient(circle at 1px 1px, rgba(36, 63, 70, 0.10) 1px, transparent 0);
+    background-size: auto, 24px 24px;
+    padding: 2.5rem 2rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1.3fr 1fr; gap: 3rem; align-items: end;
+  }
+  .hero h1 {
+    font-family: 'Corben', Georgia, serif;
+    font-size: clamp(2rem, 4vw, 2.85rem);
+    color: var(--dark); margin: 0 0 0.5rem;
+    line-height: 1.05; letter-spacing: -0.02em;
+  }
+  .hero p {
+    color: var(--dark); margin: 0; font-size: 1.05rem;
+  }
+  .hero-stats {
+    display: flex; gap: 0; border: 1px solid var(--rule); border-radius: 18px;
+    background: white;
+  }
+  .hero-stat {
+    flex: 1; padding: 0.9rem 1.1rem;
+    border-right: 1px solid var(--rule);
+  }
+  .hero-stat:last-child { border-right: none; }
+  .hero-stat-num {
+    font-family: 'Corben', Georgia, serif; font-weight: 700;
+    color: var(--dark); font-size: 1.3rem; display: block; line-height: 1;
+  }
+  .hero-stat-label {
+    font-size: 12px; color: var(--ink-soft); margin-top: 0.2rem; display: block;
+  }
+
+  /* FILTER BAR */
+  .filter-bar {
+    max-width: 1200px; margin: 0 auto;
+    padding: 1.5rem 2rem; display: flex; align-items: center; gap: 1rem;
+    flex-wrap: wrap; border-bottom: 1px solid var(--rule);
+  }
+  .filter-label {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--ink-soft); font-weight: 600;
+  }
+  .filter-chip {
+    padding: 0.45rem 0.9rem; border-radius: 100px;
+    border: 1px solid var(--rule); background: white;
+    font-size: 13px; font-weight: 500; cursor: pointer;
+    color: var(--dark);
+  }
+  .filter-chip.active-1 { border-color: var(--accent-1); background: var(--accent-1); color: white; }
+  .filter-chip.active-2 { border-color: var(--accent-2); background: var(--accent-2); color: var(--dark); }
+  .filter-chip.active-3 { border-color: var(--accent-3); background: var(--accent-3); color: white; }
+  .filter-chip.is-all { border-color: var(--dark); background: var(--dark); color: white; }
+
+  /* THE GRID — page IS the convos */
+  .convos {
+    max-width: 1200px; margin: 0 auto;
+    padding: 1.5rem 2rem 4rem;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+  }
+  @media (max-width: 900px) { .convos { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .convos { grid-template-columns: 1fr; } }
+
+  .card {
+    background: white; border: 1px solid var(--rule);
+    border-top: 3px solid var(--accent-1);
+    border-radius: 18px;
+    padding: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem;
+    text-decoration: none; color: var(--ink);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px -10px rgba(0,0,0,0.12); }
+  .card.t1 { border-top-color: var(--accent-1); }
+  .card.t2 { border-top-color: var(--accent-2); }
+  .card.t3 { border-top-color: var(--accent-3); }
+  .card-title {
+    font-family: 'Corben', Georgia, serif; font-size: 1.4rem; line-height: 1.1;
+    font-weight: 700; margin: 0; letter-spacing: -0.015em;
+  }
+  .card.t1 .card-title { color: var(--accent-1); }
+  .card.t2 .card-title { color: var(--accent-2); }
+  .card.t3 .card-title { color: var(--accent-3); }
+  .card-q { font-size: 0.95rem; color: var(--ink-soft); margin: 0; }
+  .card-meta {
+    margin-top: auto; padding-top: 0.85rem;
+    border-top: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 12px; color: var(--ink-soft); font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .card-meta-theme {
+    padding: 2px 8px; border-radius: 100px;
+  }
+  .card.t1 .card-meta-theme { background: rgba(222, 100, 73, 0.12); color: var(--accent-1); }
+  .card.t2 .card-meta-theme { background: rgba(224, 164, 88, 0.18); color: var(--accent-2); }
+  .card.t3 .card-meta-theme { background: rgba(40, 0, 3, 0.10); color: var(--accent-3); }
+
+  /* ABOUT STRIP — a tight, factual "how this works" at the bottom */
+  .about-strip {
+    background: var(--dark); color: white;
+    padding: 3rem 2rem;
+  }
+  .about-strip-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+  }
+  .about-strip h3 {
+    font-family: 'Corben', Georgia, serif; font-size: 1.2rem; margin: 0 0 0.5rem;
+    color: var(--light);
+  }
+  .about-strip p {
+    margin: 0; color: rgba(255,255,255,0.85); font-size: 14px; line-height: 1.5;
+  }
+  .about-strip h2 {
+    font-family: 'Corben', Georgia, serif; font-size: 1.6rem;
+    color: white; margin: 0 0 1.5rem;
+    grid-column: 1 / -1;
+  }
+  .about-strip .cta {
+    display: inline-block; margin-top: 0.75rem;
+    color: var(--mid); font-weight: 600; font-size: 13px;
+    text-decoration: underline; text-decoration-color: var(--mid);
+  }
+
+  /* MICRO FOOTER */
+  footer {
+    padding: 1.5rem 2rem; text-align: center;
+    color: var(--ink-soft); font-size: 13px;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* Layout label (just for the mockup) */
+  .layout-label {
+    position: fixed; top: 1rem; right: 1rem;
+    background: var(--accent-4); color: white;
+    padding: 0.5rem 1rem; border-radius: 100px;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.04em;
+    z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+</style>
+</head>
+<body>
+<div class="layout-label">Layout A · Pick a Convo</div>
+
+<nav class="nav">
+  <a class="nav-logo" href="#">
+    <svg viewBox="0 0 36 36" width="22" height="22" aria-hidden="true">
+      <circle cx="18" cy="18" r="4.5" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <circle cx="18" cy="6" r="2.4" fill="currentColor"/>
+      <circle cx="28.4" cy="12" r="2.4" fill="currentColor"/>
+      <circle cx="28.4" cy="24" r="2.4" fill="currentColor"/>
+      <circle cx="18" cy="30" r="2.4" fill="currentColor"/>
+      <circle cx="7.6" cy="24" r="2.4" fill="currentColor"/>
+      <circle cx="7.6" cy="12" r="2.4" fill="currentColor"/>
+    </svg>
+    Convos with Colleagues
+  </a>
+  <div class="nav-links">
+    <a href="#">How this works</a>
+    <a href="#">Tips</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Roundtable convos for math teachers</h1>
+      <p>Twelve discussion guides, two to five people, no facilitator. Pick one.</p>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="hero-stat-num">30–60</span><span class="hero-stat-label">minutes</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">2–5</span><span class="hero-stat-label">educators</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">0</span><span class="hero-stat-label">prep needed</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="filter-bar">
+  <span class="filter-label">Filter by theme:</span>
+  <button class="filter-chip is-all">All 12</button>
+  <button class="filter-chip active-1">Deepening Understanding</button>
+  <button class="filter-chip active-2">Student Discourse</button>
+  <button class="filter-chip active-3">Real World</button>
+</div>
+
+<main class="convos">
+  <a class="card t1" href="#">
+    <p class="card-title">Sequence &amp; Share</p>
+    <p class="card-q">How should I sequence and share student work?</p>
+    <div class="card-meta"><span class="card-meta-theme">Deepening</span><span>Student work</span></div>
+  </a>
+  <a class="card t1" href="#">
+    <p class="card-title">Right Answers</p>
+    <p class="card-q">How should I handle students' "right" answers?</p>
+    <div class="card-meta"><span class="card-meta-theme">Deepening</span><span>Animated</span></div>
+  </a>
+  <a class="card t1" href="#">
+    <p class="card-title">Wrong Answers</p>
+    <p class="card-q">How should I handle students' "wrong" answers?</p>
+    <div class="card-meta"><span class="card-meta-theme">Deepening</span><span>Animated</span></div>
+  </a>
+  <a class="card t1" href="#">
+    <p class="card-title">Getting Started</p>
+    <p class="card-q">How should I help students get started?</p>
+    <div class="card-meta"><span class="card-meta-theme">Deepening</span><span>Animated</span></div>
+  </a>
+
+  <a class="card t2" href="#">
+    <p class="card-title">Physical Classroom</p>
+    <p class="card-q">How can I arrange my physical classroom?</p>
+    <div class="card-meta"><span class="card-meta-theme">Discourse</span><span>Animated</span></div>
+  </a>
+  <a class="card t2" href="#">
+    <p class="card-title">Student-to-Student</p>
+    <p class="card-q">How can I foster student-to-student discussions?</p>
+    <div class="card-meta"><span class="card-meta-theme">Discourse</span><span>Animated</span></div>
+  </a>
+  <a class="card t2" href="#">
+    <p class="card-title">Complex Problems</p>
+    <p class="card-q">How should I guide students through complex problems?</p>
+    <div class="card-meta"><span class="card-meta-theme">Discourse</span><span>Transcript</span></div>
+  </a>
+  <a class="card t2" href="#">
+    <p class="card-title">Voices &amp; Perspectives</p>
+    <p class="card-q">How can I elicit more voices and perspectives?</p>
+    <div class="card-meta"><span class="card-meta-theme">Discourse</span><span>Animated</span></div>
+  </a>
+
+  <a class="card t3" href="#">
+    <p class="card-title">Rabbit Holes</p>
+    <p class="card-q">How should I navigate conversational rabbit holes?</p>
+    <div class="card-meta"><span class="card-meta-theme">Real World</span><span>Transcript</span></div>
+  </a>
+  <a class="card t3" href="#">
+    <p class="card-title">Sensitive Topics</p>
+    <p class="card-q">How should I approach sensitive topics?</p>
+    <div class="card-meta"><span class="card-meta-theme">Real World</span><span>Transcript</span></div>
+  </a>
+  <a class="card t3" href="#">
+    <p class="card-title">Open-Ended Qs</p>
+    <p class="card-q">How can I strengthen student responses?</p>
+    <div class="card-meta"><span class="card-meta-theme">Real World</span><span>Student work</span></div>
+  </a>
+  <a class="card t3" href="#">
+    <p class="card-title">Voices &amp; Perspectives</p>
+    <p class="card-q">Placeholder for a 12th convo.</p>
+    <div class="card-meta"><span class="card-meta-theme">Real World</span><span>Animated</span></div>
+  </a>
+</main>
+
+<section class="about-strip">
+  <div class="about-strip-inner">
+    <h2>How a convo works</h2>
+    <div>
+      <h3>① Convo Guide</h3>
+      <p>One-page agenda with carefully crafted questions. Each participant gets a copy.</p>
+    </div>
+    <div>
+      <h3>② Spark</h3>
+      <p>A short video, classroom transcript, or piece of student work to ground the discussion.</p>
+    </div>
+    <div>
+      <h3>③ Reference Lesson</h3>
+      <p>A Citizen Math lesson that anchors the spark. <a class="cta" href="#">Browse the lessons →</a></p>
+    </div>
+  </div>
+</section>
+
+<footer>A professional learning resource. Use freely.</footer>
+
+</body>
+</html>
