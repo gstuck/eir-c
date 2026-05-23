@@ -1,34 +1,57 @@
 /* ============================================================
-   Convos with Colleagues — Version C (Airy)
-   Earthy palette · Corben + Inter + Caveat
-   ============================================================ */
-
-/* ============================================================
-   Convos with Colleagues — Version C, Revision 3
-   Earthy palette: Mahogany, Burnt Peach, Dusty Olive, Slate, Celadon
+   Convos with Colleagues — Version C, Revision 4
+   Role-based palette · designed to harmonize with print materials
+   ----------------------------------------------------------------
+   Six color roles drive the whole site. Change them in :root to
+   re-theme. The legacy color-name aliases below let the rest of
+   the file (~1400 lines) keep working without edits.
    ============================================================ */
 
 :root {
-  --c-mahogany: #280003;
-  --c-peach:    #DE6449;
-  --c-olive:    #7E846B;
-  --c-slate:    #243E36;
-  --c-celadon:  #AEF6C7;
+  /* ----------------------------------------------------------------
+     ROLE-BASED PALETTE — single source of truth.
+     Change these six values to re-theme the entire site.
+     ---------------------------------------------------------------- */
+  --dark:     #243F46;  /* dark teal     — header, headings, deep ink */
+  --mid:      #51C49B;  /* jade          — links, accents, focus      */
+  --light:    #CDF6DD;  /* pale mint     — hero tint, soft surfaces   */
+  --accent-1: #DE6449;  /* burnt peach   — primary warm accent        */
+  --accent-2: #E0A458;  /* honey amber   — secondary warm (was olive) */
+  --accent-3: #280003;  /* mahogany      — deepest warm, stat cards   */
 
-  /* Soft tints (paper-light versions) */
-  --c-peach-soft:   #FAE9E3;
-  --c-olive-soft:   #ECEDE6;
-  --c-slate-soft:   #E1E7E4;
-  --c-celadon-soft: #E7FBEF;
+  /* Soft tints — paper-light versions of each role.
+     If you change a role color, regenerate its -soft to match (~12%). */
+  --dark-soft:     #E1E7E8;
+  --light-soft:    #ECFAF1;
+  --accent-1-soft: #FAE9E3;
+  --accent-2-soft: #F8EEDC;
+  --accent-3-soft: #F2E0DE;
 
-  --bg:          #FFFFFF;
-  --ink:         #1F1B24;
-  --ink-soft:    #5B5560;
-  --ink-faint:   #8B848F;
-  --rule:        #E5E3E0;
+  /* ----------------------------------------------------------------
+     LEGACY ALIASES — every existing rule reads through these.
+     Keeps ~1400 lines of CSS working without edits while we riff.
+     When the role assignments stabilize, these can be removed and
+     the file search-replaced to use --dark / --mid / etc. directly.
+     ---------------------------------------------------------------- */
+  --c-mahogany:     var(--accent-3);
+  --c-peach:        var(--accent-1);
+  --c-olive:        var(--accent-2);   /* now honey amber, not olive */
+  --c-slate:        var(--dark);
+  --c-celadon:      var(--light);
+  --c-peach-soft:   var(--accent-1-soft);
+  --c-olive-soft:   var(--accent-2-soft);
+  --c-slate-soft:   var(--dark-soft);
+  --c-celadon-soft: var(--light-soft);
 
-  --radius-lg:   24px;
-  --radius-md:   18px;
+  /* Neutrals — unchanged */
+  --bg:        #FFFFFF;
+  --ink:       #1F1B24;
+  --ink-soft:  #5B5560;
+  --ink-faint: #8B848F;
+  --rule:      #E5E3E0;
+
+  --radius-lg: 24px;
+  --radius-md: 18px;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -41,7 +64,7 @@ body {
   line-height: 1.6;
   color: var(--ink);
   background-color: var(--bg);
-  background-image: radial-gradient(circle at 1px 1px, rgba(31, 27, 36, 0.10) 1px, transparent 0);
+  background-image: radial-gradient(circle at 1px 1px, rgba(36, 63, 70, 0.08) 1px, transparent 0);
   background-size: 24px 24px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -56,7 +79,7 @@ a {
   text-decoration-color: rgba(31, 27, 36, 0.25);
   transition: text-decoration-color 0.15s ease;
 }
-a:hover { text-decoration-color: var(--c-peach); }
+a:hover { text-decoration-color: var(--mid); }
 
 /* ============================================================
    SITE HEADER — dark slate forest
@@ -113,11 +136,13 @@ a:hover { text-decoration-color: var(--c-peach); }
 
 .home-hero {
   padding: 4rem 2rem 3rem;
-  background: var(--c-celadon-soft);
+  background-color: var(--light-soft);
   background-image:
-    radial-gradient(circle at 1px 1px, rgba(36, 62, 54, 0.12) 1px, transparent 0);
-  background-size: 24px 24px;
+    radial-gradient(ellipse at 25% 30%, rgba(81, 196, 155, 0.18), transparent 55%),
+    radial-gradient(circle at 1px 1px, rgba(36, 63, 70, 0.12) 1px, transparent 0);
+  background-size: auto, 24px 24px;
   border-bottom: 1px solid var(--rule);
+  position: relative;
 }
 .home-hero-inner {
   max-width: 1200px;
@@ -222,8 +247,8 @@ a:hover { text-decoration-color: var(--c-peach); }
   border-bottom: 3px solid var(--c-peach);
   color: var(--ink);
 }
-.theme-section:nth-of-type(2) .theme-header h2 { border-bottom-color: var(--c-olive); }
-.theme-section:nth-of-type(3) .theme-header h2 { border-bottom-color: var(--c-slate); }
+.theme-section:nth-of-type(2) .theme-header h2 { border-bottom-color: var(--accent-2); }
+.theme-section:nth-of-type(3) .theme-header h2 { border-bottom-color: var(--mid); }
 
 .theme-lesson {
   font-family: 'Inter', sans-serif;
@@ -236,12 +261,12 @@ a:hover { text-decoration-color: var(--c-peach); }
   line-height: 1.5;
 }
 .theme-lesson-icon { display: inline-flex; align-items: center; color: var(--c-peach); }
-.theme-section:nth-of-type(2) .theme-lesson-icon { color: var(--c-olive); }
-.theme-section:nth-of-type(3) .theme-lesson-icon { color: var(--c-slate); }
+.theme-section:nth-of-type(2) .theme-lesson-icon { color: var(--accent-2); }
+.theme-section:nth-of-type(3) .theme-lesson-icon { color: var(--mid); }
 .theme-lesson-label { font-weight: 500; color: var(--ink-faint); }
 .theme-lesson-link { color: var(--ink); font-weight: 500; text-decoration-color: var(--c-peach); }
-.theme-section:nth-of-type(2) .theme-lesson-link { text-decoration-color: var(--c-olive); }
-.theme-section:nth-of-type(3) .theme-lesson-link { text-decoration-color: var(--c-slate); }
+.theme-section:nth-of-type(2) .theme-lesson-link { text-decoration-color: var(--accent-2); }
+.theme-section:nth-of-type(3) .theme-lesson-link { text-decoration-color: var(--mid); }
 .theme-lesson-link em { font-style: italic; }
 .theme-lesson-credit { color: var(--ink-faint); font-style: italic; }
 .theme-lesson-sep { color: var(--ink-faint); }
@@ -354,9 +379,9 @@ a:hover { text-decoration-color: var(--c-peach); }
   transform: translateY(-3px);
   box-shadow: 0 12px 32px -10px rgba(31, 27, 36, 0.12);
 }
-.theme-section:nth-of-type(1) .convo-card:hover { border-color: var(--c-peach); }
-.theme-section:nth-of-type(2) .convo-card:hover { border-color: var(--c-olive); }
-.theme-section:nth-of-type(3) .convo-card:hover { border-color: var(--c-slate); }
+.theme-section:nth-of-type(1) .convo-card:hover { border-color: var(--accent-1); }
+.theme-section:nth-of-type(2) .convo-card:hover { border-color: var(--accent-2); }
+.theme-section:nth-of-type(3) .convo-card:hover { border-color: var(--mid); }
 
 .convo-short {
   font-family: 'Corben', 'Cooper Std', 'Souvenir', Georgia, serif;
@@ -410,7 +435,7 @@ a:hover { text-decoration-color: var(--c-peach); }
   width: 460px;
   height: 460px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(174, 246, 199, 0.20), transparent 70%);
+  background: radial-gradient(circle, rgba(205, 246, 221, 0.22), transparent 70%);
   bottom: -240px;
   right: -100px;
   pointer-events: none;
@@ -502,7 +527,7 @@ a:hover { text-decoration-color: var(--c-peach); }
   width: 420px;
   height: 420px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(174, 246, 199, 0.22), transparent 70%);
+  background: radial-gradient(circle, rgba(205, 246, 221, 0.25), transparent 70%);
   top: -200px;
   left: -100px;
   pointer-events: none;
@@ -703,12 +728,22 @@ a:hover { text-decoration-color: var(--c-peach); }
 }
 
 .detail-hero {
-  padding: 4rem 2rem 3rem;
-  background: var(--c-celadon-soft);
-  background-image: radial-gradient(circle at 1px 1px, rgba(36, 62, 54, 0.10) 1px, transparent 0);
+  padding: 3.5rem 2rem;
+  background: var(--light-soft);
+  background-image: radial-gradient(circle at 1px 1px, rgba(36, 63, 70, 0.10) 1px, transparent 0);
   background-size: 24px 24px;
-  text-align: center;
   border-bottom: 1px solid var(--rule);
+}
+.detail-hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 3.5rem;
+  align-items: start;
+}
+.detail-hero-content {
+  text-align: left;
 }
 .detail-hero .hero-theme {
   font-family: 'Inter', sans-serif;
@@ -717,16 +752,25 @@ a:hover { text-decoration-color: var(--c-peach); }
   text-transform: uppercase;
   letter-spacing: 0.16em;
   color: var(--c-peach);
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
   margin-bottom: 1.25rem;
+}
+.detail-hero .hero-theme::before {
+  content: "";
+  display: inline-block;
+  width: 28px;
+  height: 2px;
+  background: var(--c-peach);
 }
 .detail-hero h1 {
   font-family: 'Corben', 'Cooper Std', 'Souvenir', Georgia, serif;
-  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-size: clamp(2rem, 4.5vw, 3rem);
   font-weight: 700;
   line-height: 1.05;
   letter-spacing: -0.02em;
-  margin: 0 auto 1.5rem;
+  margin: 0 0 1.5rem;
   max-width: 22ch;
   color: var(--c-peach);
 }
@@ -734,32 +778,30 @@ a:hover { text-decoration-color: var(--c-peach); }
   font-family: 'Inter', sans-serif;
   font-size: 1.05rem;
   line-height: 1.6;
-  max-width: 60ch;
-  margin: 0 auto;
+  max-width: 55ch;
+  margin: 0;
   color: var(--c-slate);
 }
 
-/* Prep zone — action buttons */
+/* Prep zone — action buttons, now living in the hero's right column */
 .prep-zone {
-  margin: 2.5rem auto 0;
+  margin: 0;
   padding: 1.5rem;
   background: var(--bg);
   border: 1px solid var(--rule);
   border-radius: var(--radius-md);
-  max-width: 760px;
 }
 .prep-actions {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  justify-content: center;
+  flex-direction: column;
+  gap: 0.55rem;
 }
 .prep-action-btn {
   font-family: 'Inter', sans-serif;
   font-size: 13.5px;
   font-weight: 600;
   letter-spacing: 0.01em;
-  padding: 0.7rem 1.1rem;
+  padding: 0.75rem 1.1rem;
   background: var(--bg);
   color: var(--ink);
   text-decoration: none;
@@ -767,23 +809,31 @@ a:hover { text-decoration-color: var(--c-peach); }
   border-radius: 100px;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   transition: all 0.15s ease;
 }
 .prep-action-btn:hover {
-  border-color: var(--c-slate);
-  background: var(--c-slate);
+  border-color: var(--dark);
+  background: var(--dark);
   color: white;
   text-decoration: none;
 }
 .prep-action-btn.prep-action-primary {
-  background: var(--c-peach);
+  background: var(--accent-1);
   color: white;
-  border-color: var(--c-peach);
+  border-color: var(--accent-1);
 }
 .prep-action-btn.prep-action-primary:hover {
-  background: var(--c-mahogany);
-  border-color: var(--c-mahogany);
+  background: var(--accent-3);
+  border-color: var(--accent-3);
+}
+
+@media (max-width: 800px) {
+  .detail-hero-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
 }
 
 /* Sections (Observe, Discuss, Relate, Commit) */
@@ -811,6 +861,24 @@ a:hover { text-decoration-color: var(--c-peach); }
   transition: background 0.15s ease;
 }
 .section-header:hover { background: var(--c-celadon-soft); }
+.section-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--accent-1);
+  color: white;
+  font-family: 'Corben', 'Cooper Std', 'Souvenir', Georgia, serif;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  flex-shrink: 0;
+}
+#discuss .section-num { background: var(--accent-2); }
+#relate  .section-num { background: var(--dark); }
+#commit  .section-num { background: var(--accent-3); }
 .section-header h2 {
   font-family: 'Corben', 'Cooper Std', 'Souvenir', Georgia, serif;
   font-size: 1.5rem;
@@ -820,11 +888,11 @@ a:hover { text-decoration-color: var(--c-peach); }
   flex: 1;
   line-height: 1;
 }
-/* Phase color accents: Observe=peach, Discuss=olive, Relate=slate, Commit=mahogany */
-#observe .section-header h2 { color: var(--c-peach); }
-#discuss .section-header h2 { color: var(--c-olive); }
-#relate  .section-header h2 { color: var(--c-slate); }
-#commit  .section-header h2 { color: var(--c-mahogany); }
+/* Phase color accents: Observe=peach, Discuss=honey, Relate=dark teal, Commit=mahogany */
+#observe .section-header h2 { color: var(--accent-1); }
+#discuss .section-header h2 { color: var(--accent-2); }
+#relate  .section-header h2 { color: var(--dark); }
+#commit  .section-header h2 { color: var(--accent-3); }
 
 .section-time {
   font-family: 'Inter', sans-serif;
@@ -832,8 +900,8 @@ a:hover { text-decoration-color: var(--c-peach); }
   font-weight: 600;
   letter-spacing: 0.06em;
   padding: 4px 10px;
-  background: var(--c-celadon-soft);
-  color: var(--c-slate);
+  background: var(--light);
+  color: var(--dark);
   border-radius: 100px;
 }
 .section-toggle {
@@ -859,32 +927,30 @@ a:hover { text-decoration-color: var(--c-peach); }
   list-style: none;
   padding: 0;
   margin: 1.5rem 0 0;
-  counter-reset: q;
 }
 .questions li {
   position: relative;
-  padding: 0.9rem 0 0.9rem 2.5rem;
+  padding: 0.9rem 0 0.9rem 1.75rem;
   font-family: 'Inter', sans-serif;
   font-size: 1rem;
   line-height: 1.55;
   color: var(--ink);
   border-bottom: 1px solid var(--rule);
-  counter-increment: q;
 }
 .questions li:last-child { border-bottom: none; }
 .questions li::before {
-  content: counter(q, decimal-leading-zero);
+  content: "";
   position: absolute;
-  left: 0;
-  top: 0.95rem;
-  font-family: 'Corben', 'Cooper Std', 'Souvenir', Georgia, serif;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--c-peach);
+  left: 0.4rem;
+  top: 1.3rem;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent-1);
 }
-#discuss .questions li::before { color: var(--c-olive); }
-#relate  .questions li::before { color: var(--c-slate); }
-#commit  .questions li::before { color: var(--c-mahogany); }
+#discuss .questions li::before { background: var(--accent-2); }
+#relate  .questions li::before { background: var(--dark); }
+#commit  .questions li::before { background: var(--accent-3); }
 
 /* Spark inset inside Observe */
 .spark-inset {
@@ -968,8 +1034,8 @@ a:hover { text-decoration-color: var(--c-peach); }
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: var(--c-celadon);
-  color: var(--c-slate);
+  background: var(--mid);
+  color: white;
   border: none;
   display: inline-flex;
   align-items: center;
@@ -1061,8 +1127,8 @@ a:hover { text-decoration-color: var(--c-peach); }
   display: inline-block;
   border-bottom: 2px solid var(--c-peach);
 }
-.article-section:nth-of-type(even) h2 { border-bottom-color: var(--c-olive); }
-.article-section:nth-of-type(3n) h2 { border-bottom-color: var(--c-slate); }
+.article-section:nth-of-type(even) h2 { border-bottom-color: var(--accent-2); }
+.article-section:nth-of-type(3n) h2 { border-bottom-color: var(--mid); }
 .article-section p {
   font-family: 'Inter', sans-serif;
   font-size: 1.05rem;
@@ -1119,9 +1185,9 @@ a:hover { text-decoration-color: var(--c-peach); }
   font-size: 1.1rem;
   font-weight: 700;
 }
-.tip:nth-of-type(2n) .tip-num { background: var(--c-olive-soft); color: var(--c-olive); }
-.tip:nth-of-type(3n) .tip-num { background: var(--c-slate-soft); color: var(--c-slate); }
-.tip:nth-of-type(5n) .tip-num { background: var(--c-celadon-soft); color: var(--c-slate); }
+.tip:nth-of-type(2n) .tip-num { background: var(--accent-2-soft); color: var(--accent-2); }
+.tip:nth-of-type(3n) .tip-num { background: var(--light); color: var(--dark); }
+.tip:nth-of-type(5n) .tip-num { background: var(--dark-soft); color: var(--dark); }
 .tip h2 {
   font-family: 'Corben', 'Cooper Std', 'Souvenir', Georgia, serif;
   font-size: 1.2rem;
@@ -1173,7 +1239,7 @@ a:hover { text-decoration-color: var(--c-peach); }
 .video-modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(36, 62, 54, 0.7);
+  background: rgba(36, 63, 70, 0.7);
   backdrop-filter: blur(4px);
 }
 .video-modal-content {
@@ -1229,7 +1295,7 @@ a:hover { text-decoration-color: var(--c-peach); }
   align-items: center;
   justify-content: center;
   padding: 32px;
-  background: rgba(36, 62, 54, 0.55);
+  background: rgba(36, 63, 70, 0.55);
   backdrop-filter: blur(4px);
 }
 .convo-player-modal[hidden] { display: none; }
@@ -1327,12 +1393,12 @@ a:hover { text-decoration-color: var(--c-peach); }
 .convo-dot:hover { transform: scale(1.08); }
 .convo-dot.active {
   transform: scale(1.15);
-  box-shadow: 0 0 0 9px rgba(36, 62, 54, 0.06);
+  box-shadow: 0 0 0 9px rgba(36, 63, 70, 0.06);
 }
-.convo-dot[data-phase="0"] { background: var(--c-peach); }
-.convo-dot[data-phase="1"] { background: var(--c-olive); }
-.convo-dot[data-phase="2"] { background: var(--c-slate); }
-.convo-dot[data-phase="3"] { background: var(--c-mahogany); }
+.convo-dot[data-phase="0"] { background: var(--accent-1); }
+.convo-dot[data-phase="1"] { background: var(--accent-2); }
+.convo-dot[data-phase="2"] { background: var(--dark); }
+.convo-dot[data-phase="3"] { background: var(--accent-3); }
 
 .convo-dot-text {
   display: flex;
@@ -1456,9 +1522,9 @@ a:hover { text-decoration-color: var(--c-peach); }
   font-weight: 700;
   color: var(--c-peach);
 }
-.convo-phase[data-phase="1"] .convo-q::before { color: var(--c-olive); }
-.convo-phase[data-phase="2"] .convo-q::before { color: var(--c-slate); }
-.convo-phase[data-phase="3"] .convo-q::before { color: var(--c-mahogany); }
+.convo-phase[data-phase="1"] .convo-q::before { color: var(--accent-2); }
+.convo-phase[data-phase="2"] .convo-q::before { color: var(--dark); }
+.convo-phase[data-phase="3"] .convo-q::before { color: var(--accent-3); }
 
 /* Modal: hint text below dots (kbd help) */
 .convo-player-hint {
