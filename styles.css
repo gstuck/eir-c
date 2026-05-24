@@ -1193,21 +1193,30 @@ a:hover { text-decoration-color: var(--mid); }
   position: absolute;
   top: 1.25rem;
   left: 1.25rem;
-  width: 3rem;
-  height: 3rem;
+  width: 3.25rem;
+  height: 3.25rem;
   border-radius: 50%;
-  background: var(--c-peach-soft);
-  color: var(--c-peach);
+  background: var(--accent-1-soft);
+  color: var(--accent-1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-family: 'Corben', 'Cooper Std', 'Souvenir', Georgia, serif;
-  font-size: 1.1rem;
+  font-size: 1.45rem;
   font-weight: 700;
+  letter-spacing: -0.02em;
 }
-.tip:nth-of-type(2n) .tip-num { background: var(--accent-2-soft); color: var(--accent-2); }
+.tip:nth-of-type(2n) .tip-num { background: var(--accent-3-soft); color: var(--accent-3); }
 .tip:nth-of-type(3n) .tip-num { background: var(--light); color: var(--dark); }
-.tip:nth-of-type(5n) .tip-num { background: var(--dark-soft); color: var(--dark); }
+/* The last tip in the list is #1 — the countdown punchline. Make it pop. */
+.tip:last-of-type .tip-num {
+  background: var(--accent-4);
+  color: white;
+  width: 3.75rem;
+  height: 3.75rem;
+  font-size: 1.7rem;
+  box-shadow: 0 6px 18px -6px rgba(255, 121, 120, 0.6);
+}
 .tip h2 {
   font-family: 'Corben', 'Cooper Std', 'Souvenir', Georgia, serif;
   font-size: 1.2rem;
