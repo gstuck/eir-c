@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hero treatment comparison</title>
+<link href="https://fonts.googleapis.com/css2?family=Corben:wght@400;700&family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dark:     #243F46;
+    --mid:      #51C49B;
+    --light:    #CDF6DD;
+    --light-soft: #ECFAF1;
+    --accent-1: #FFA878;
+    --accent-3: #68355D;
+    --bg:        #FFFFFF;
+    --ink:       #1F1B24;
+    --ink-soft:  #5B5560;
+    --rule:      #E5E3E0;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    background: white;
+  }
+  .option {
+    border-bottom: 4px solid #ddd;
+  }
+  .option-label {
+    background: var(--accent-3);
+    color: white;
+    padding: 0.5rem 2rem;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .option-notes {
+    padding: 1rem 2rem;
+    background: white;
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .option-notes strong { color: var(--dark); }
+
+  /* Shared header bar (so each option looks like it sits in the real site) */
+  .nav {
+    background: var(--dark);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .nav-logo img { height: 38px; display: block; }
+  .nav-links a {
+    color: white; text-decoration: none; margin-left: 1.5rem;
+    font-size: 14px; font-weight: 500; opacity: 0.85;
+  }
+
+  /* HERO SHARED — logo + dek + stats */
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem 3rem;
+  }
+  .hero-logo {
+    height: 140px;
+    width: auto;
+    display: block;
+    margin: 0 0 2rem;
+  }
+  .hero-dek {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.25rem;
+    line-height: 1.55;
+    margin: 0;
+    max-width: 50ch;
+  }
+  .hero-stats {
+    max-width: 1200px;
+    margin: 3rem auto 0;
+    display: flex;
+    border: 1px solid var(--rule);
+    border-radius: 18px;
+    overflow: hidden;
+    background: white;
+  }
+  .hero-stat {
+    flex: 1;
+    padding: 1.5rem 1.75rem;
+    border-right: 1px solid var(--rule);
+  }
+  .hero-stat:last-child { border-right: none; }
+  .hero-stat-num {
+    font-family: 'Corben', Georgia, serif;
+    font-size: 1.7rem;
+    color: var(--dark);
+    display: block;
+    line-height: 1;
+  }
+  .hero-stat-label {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    margin-top: 0.35rem;
+    display: block;
+  }
+
+  /* Sneak peek of the cards below to make each option look "real" */
+  .peek {
+    max-width: 1200px;
+    margin: 3rem auto 0;
+    padding: 0 2rem 4rem;
+  }
+  .peek-h {
+    font-family: 'Corben', Georgia, serif;
+    font-size: 1.5rem;
+    color: var(--dark);
+    margin: 0 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--accent-1);
+    display: inline-block;
+  }
+  .peek-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  .peek-card {
+    background: white;
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--accent-1);
+    border-radius: 16px;
+    padding: 1.25rem;
+  }
+  .peek-card-title {
+    font-family: 'Corben', Georgia, serif;
+    font-size: 1.25rem;
+    color: var(--accent-1);
+    line-height: 1.1;
+    margin: 0;
+  }
+  .peek-card-q {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    margin: 0.4rem 0 0;
+  }
+
+  /* ===== OPTION 1: PALE MINT (current) ===== */
+  .opt-1 .hero {
+    background-color: var(--light-soft);
+    background-image:
+      radial-gradient(ellipse at 25% 30%, rgba(81, 196, 155, 0.18), transparent 55%),
+      radial-gradient(circle at 1px 1px, rgba(36, 63, 70, 0.12) 1px, transparent 0);
+    background-size: auto, 24px 24px;
+  }
+  .opt-1 .hero-dek { color: var(--dark); }
+  .opt-1 .peek { background: white; }
+
+  /* ===== OPTION 2: DARK TEAL ===== */
+  .opt-2 .hero {
+    background-color: var(--dark);
+    background-image: radial-gradient(circle at 1px 1px, rgba(205, 246, 221, 0.10) 1px, transparent 0);
+    background-size: 24px 24px;
+  }
+  .opt-2 .hero-dek { color: var(--light); }
+  .opt-2 .hero-stats {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+  .opt-2 .hero-stat {
+    border-right-color: rgba(255, 255, 255, 0.15);
+  }
+  .opt-2 .hero-stat-num { color: var(--light); }
+  .opt-2 .hero-stat-label { color: rgba(255, 255, 255, 0.7); }
+
+  /* ===== OPTION 3: WHITE → MINT GRADIENT ===== */
+  .opt-3 .hero {
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(36, 63, 70, 0.08) 1px, transparent 0),
+      linear-gradient(to bottom, #FFFFFF 0%, #FFFFFF 30%, var(--light-soft) 100%);
+    background-size: 24px 24px, 100% 100%;
+  }
+  .opt-3 .hero-dek { color: var(--dark); }
+  .opt-3 .peek {
+    background-color: var(--light-soft);
+    background-image: radial-gradient(circle at 1px 1px, rgba(36, 63, 70, 0.08) 1px, transparent 0);
+    background-size: 24px 24px;
+    max-width: none;
+    padding: 3rem 2rem 4rem;
+  }
+  .opt-3 .peek-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Layout label pinned to top */
+  .floating-label {
+    position: fixed; top: 1rem; right: 1rem;
+    background: var(--accent-3); color: white;
+    padding: 0.5rem 1rem; border-radius: 100px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.04em;
+    text-transform: uppercase;
+    z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+</style>
+</head>
+<body>
+<div class="floating-label">Scroll to compare</div>
+
+<!-- ============ OPTION 1: PALE MINT (current) ============ -->
+<div class="option opt-1">
+  <div class="option-label">OPTION 1 · Pale mint background (current)</div>
+  <nav class="nav">
+    <a class="nav-logo" href="#"><img src="logo-darkbg.svg" alt="Convos with Colleagues"></a>
+    <div class="nav-links">
+      <a href="#">About the Convos</a>
+      <a href="#">Tips for a Great Convo</a>
+    </div>
+  </nav>
+  <section class="hero">
+    <div class="hero-inner">
+      <img src="logo-lightbg.svg" alt="Convos with Colleagues" class="hero-logo">
+      <p class="hero-dek">Roundtable discussions about common instructional challenges in math class.</p>
+    </div>
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem 3rem;">
+      <div class="hero-stats">
+        <div class="hero-stat"><span class="hero-stat-num">30–60</span><span class="hero-stat-label">minutes</span></div>
+        <div class="hero-stat"><span class="hero-stat-num">2–5</span><span class="hero-stat-label">educators, no facilitator needed</span></div>
+        <div class="hero-stat"><span class="hero-stat-num">0 prep</span><span class="hero-stat-label">perfect for your next PLC</span></div>
+      </div>
+    </div>
+  </section>
+  <div class="peek">
+    <h2 class="peek-h">Deepening Mathematical Understanding</h2>
+    <div class="peek-cards">
+      <div class="peek-card"><p class="peek-card-title">Sequence &amp; Share</p><p class="peek-card-q">How should I sequence student work?</p></div>
+      <div class="peek-card"><p class="peek-card-title">Right Answers</p><p class="peek-card-q">How should I handle "right" answers?</p></div>
+      <div class="peek-card"><p class="peek-card-title">Wrong Answers</p><p class="peek-card-q">How should I handle "wrong" answers?</p></div>
+    </div>
+  </div>
+  <div class="option-notes">
+    <strong>Pale mint hero.</strong> The hero is its own "color zone," cards below sit on white. Reads as: distinct sections of the page, hero is the destination. <em>Note:</em> the hero uses the light-bg logo (dark teal wordmark) because the bg is light.
+  </div>
+</div>
+
+<!-- ============ OPTION 2: DARK TEAL ============ -->
+<div class="option opt-2">
+  <div class="option-label">OPTION 2 · Dark teal background, dark-bg logo</div>
+  <nav class="nav">
+    <a class="nav-logo" href="#"><img src="logo-darkbg.svg" alt="Convos with Colleagues"></a>
+    <div class="nav-links">
+      <a href="#">About the Convos</a>
+      <a href="#">Tips for a Great Convo</a>
+    </div>
+  </nav>
+  <section class="hero">
+    <div class="hero-inner">
+      <img src="logo-darkbg.svg" alt="Convos with Colleagues" class="hero-logo">
+      <p class="hero-dek">Roundtable discussions about common instructional challenges in math class.</p>
+    </div>
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem 3rem;">
+      <div class="hero-stats">
+        <div class="hero-stat"><span class="hero-stat-num">30–60</span><span class="hero-stat-label">minutes</span></div>
+        <div class="hero-stat"><span class="hero-stat-num">2–5</span><span class="hero-stat-label">educators, no facilitator needed</span></div>
+        <div class="hero-stat"><span class="hero-stat-num">0 prep</span><span class="hero-stat-label">perfect for your next PLC</span></div>
+      </div>
+    </div>
+  </section>
+  <div class="peek">
+    <h2 class="peek-h">Deepening Mathematical Understanding</h2>
+    <div class="peek-cards">
+      <div class="peek-card"><p class="peek-card-title">Sequence &amp; Share</p><p class="peek-card-q">How should I sequence student work?</p></div>
+      <div class="peek-card"><p class="peek-card-title">Right Answers</p><p class="peek-card-q">How should I handle "right" answers?</p></div>
+      <div class="peek-card"><p class="peek-card-title">Wrong Answers</p><p class="peek-card-q">How should I handle "wrong" answers?</p></div>
+    </div>
+  </div>
+  <div class="option-notes">
+    <strong>Dark teal hero.</strong> The header bar and the hero merge into one dark zone — feels publication-y, more confident, more "this is a thing." Cards below feel like a release of pressure. Watch: the nav links and the hero now share the same background, which means the nav loses its visual separation. We'd want to tweak nav styling so it doesn't read as continuous with the hero.
+  </div>
+</div>
+
+<!-- ============ OPTION 3: WHITE → MINT GRADIENT ============ -->
+<div class="option opt-3">
+  <div class="option-label">OPTION 3 · White at top, pale mint at bottom (gradient into cards)</div>
+  <nav class="nav">
+    <a class="nav-logo" href="#"><img src="logo-darkbg.svg" alt="Convos with Colleagues"></a>
+    <div class="nav-links">
+      <a href="#">About the Convos</a>
+      <a href="#">Tips for a Great Convo</a>
+    </div>
+  </nav>
+  <section class="hero">
+    <div class="hero-inner">
+      <img src="logo-lightbg.svg" alt="Convos with Colleagues" class="hero-logo">
+      <p class="hero-dek">Roundtable discussions about common instructional challenges in math class.</p>
+    </div>
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem 3rem;">
+      <div class="hero-stats">
+        <div class="hero-stat"><span class="hero-stat-num">30–60</span><span class="hero-stat-label">minutes</span></div>
+        <div class="hero-stat"><span class="hero-stat-num">2–5</span><span class="hero-stat-label">educators, no facilitator needed</span></div>
+        <div class="hero-stat"><span class="hero-stat-num">0 prep</span><span class="hero-stat-label">perfect for your next PLC</span></div>
+      </div>
+    </div>
+  </section>
+  <div class="peek">
+    <div class="peek-inner">
+      <h2 class="peek-h">Deepening Mathematical Understanding</h2>
+      <div class="peek-cards">
+        <div class="peek-card"><p class="peek-card-title">Sequence &amp; Share</p><p class="peek-card-q">How should I sequence student work?</p></div>
+        <div class="peek-card"><p class="peek-card-title">Right Answers</p><p class="peek-card-q">How should I handle "right" answers?</p></div>
+        <div class="peek-card"><p class="peek-card-title">Wrong Answers</p><p class="peek-card-q">How should I handle "wrong" answers?</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="option-notes">
+    <strong>White → mint gradient.</strong> Hero starts crisp white at the top (so it doesn't compete with the dark nav above) and fades down into the pale mint that carries through to the cards. The cards section keeps the mint, so there's continuity — no hard color edge. Feels open and airy. Reads as: the hero and the cards are <em>one</em> environment, not two.
+  </div>
+</div>
+
+</body>
+</html>
